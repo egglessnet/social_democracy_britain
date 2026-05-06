@@ -20,44 +20,42 @@ if (Q.economic_growth) {
 
 Resources available: [+ resources +]
 
-SPD position: [? if spd_toleration : toleration ?][? if spd_in_government : in government - ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : opposition ?][? if spd_caretaker : caretaker government ?]
-[? if in_weimar_coalition and spd_in_government: Weimar Coalition ?][? if in_grand_coalition and spd_in_government: Grand Coalition ?][? if in_popular_front and spd_in_government: Popular Front ?][? if in_left_front and spd_in_government: Left Front ?][? if in_spd_majority and spd_in_government: SPD majority ?][? if in_minority_government and spd_in_government: minority government ?][? if in_emergency_government and spd_in_government: emergency government ?]
+Labour position: [? if spd_toleration : toleration ?][? if spd_in_government : in government - ?][? if spd_toleration == 0 and spd_in_government == 0 and spd_caretaker == 0 : opposition ?][? if spd_caretaker : caretaker government ?]
+[? if in_weimar_coalition and spd_in_government: Centre Coalition ?][? if in_grand_coalition and spd_in_government: National Coalition ?][? if in_popular_front and spd_in_government: Popular Front ?][? if in_left_front and spd_in_government: Left Front ?][? if in_spd_majority and spd_in_government: Labour majority ?][? if in_minority_government and spd_in_government: minority government ?][? if in_emergency_government and spd_in_government: emergency government ?]
 
 [? if spd_in_government and not in_spd_majority and not in_left_front : Coalition dissent: [+ coalition_dissent : coalition_dissent +] ?]
 
-[? if spd_in_government and (in_left_front or in_popular_front): KPD coalition dissent: [+ kpd_coalition_dissent : coalition_dissent +] ?]
+[? if spd_in_government and (in_left_front or in_popular_front): Communist coalition dissent: [+ kpd_coalition_dissent : coalition_dissent +] ?]
 
 Internal dissent: [+ dissent_percent : dissent +]
 
-[? if communist_influence_seen : KPD influence: [+ kpd_influence : kpd_influence +] ?]
+[? if communist_influence_seen : Communist influence: [+ kpd_influence : kpd_influence +] ?]
 
 = Government
 
-President: [+ president +]
+Monarch: [+ president +]
 
 [? if president == "Marx" : Presidential Relations: [+ marx_relation : relationships +] ?]
 
-Chancellor: [+ chancellor +] ([+ chancellor_party +])
+Prime Minister: [+ chancellor +] ([+ chancellor_party +])
 
-Reichstag composition:
+House of Commons composition:
 
 # 1928: 30, 1930: 25, 1932: 22
-SPD: [+ spd_r +]%
+Labour: [+ spd_r +]%
 [? if sapd_formed == 1 : SAPD: [+ sapd_r +]% ?]
 # 1928: 15, 1930: 15, 1932: 
-Z + BVP: [+ z_r +]%
-# 1928: 10, 1930: 13
-KPD: [+ kpd_r +]%
-# 1928: 5, 1930: 4 (as DstP)
-DDP: [+ ddp_r +]%
-# 1928: 9, 1930: 5
-DVP: [+ dvp_r +]%
+Monter Raving Loony Party: [+ z_r +]%
+# CPGB --> ? --> Greens
+[+ commie_name +]: [+ kpd_r +]%
+# Liberals --> Lib dem
+[+ lib_name +]: [+ ddp_r +]%
 # 1928: 14, 1930: 7
-DNVP: [+ dnvp_r +]%
+Conservative: [+ dnvp_r +]%
 # 1928: 3, 1930: 18
-NSDAP: [+ nsdap_r +]%
+[+ fasc_name +]: [+ nsdap_r +]%
 # 1928: 9, 1930: 10
-Others: [+ other_r +]%
+Other and Independents: [+ other_r +]%
 
 [? if spd_in_government = 1 : Budget: [+ budget +] ?]
 
@@ -79,17 +77,15 @@ Economic growth: [+ economic_growth_2 +]%
 = Inter-party Relations
 
 
-Z: [+ z_relation : relationships +]
+Monster Raving Loony Party: [+ z_relation : relationships +]
 
-DDP: [+ ddp_relation : relationships +]
+[+ lib_name +]: [+ ddp_relation : relationships +]
 
-DVP: [+ dvp_relation : relationships +]
+[+ commie_name +]: [+ kpd_relation : relationships +]
 
-KPD: [+ kpd_relation : relationships +]
+Conservative: [+ dnvp_relation : relationships +]
 
-DNVP: [+ dnvp_relation : relationships +]
-
-NSDAP: [+ nsdap_relation : relationships +]
+[+ fasc_name +]: [+ nsdap_relation : relationships +]
 
 = Internal Factions of the SPD
 
@@ -97,7 +93,7 @@ Left strength: [+ left_strength : strength +], dissent: [+ left_dissent : dissen
 
 Center strength: [+ center_strength : strength +], dissent: [+ center_dissent : dissent +]
 
-Labor strength: [+ labor_strength : strength +], dissent: [+ labor_dissent : dissent +]
+Labour strength: [+ labor_strength : strength +], dissent: [+ labor_dissent : dissent +]
 
 Reformist strength: [+ reformist_strength : strength +], dissent: [+ reformist_dissent : dissent +]
 
@@ -175,23 +171,19 @@ Q.socialism_disp = Math.round(Q.socialism);
 
 (if the election were to be held now):
 
-SPD: [+ spd_votes +]%
+Labour: [+ spd_votes +]%
 
 [? if sapd_formed == 1 : SAPD: [+ sapd_votes +]% ?]
 
-Z + BVP: [+ z_votes +]%
+Monster Raving Loony: [+ z_votes +]%
 
-KPD: [+ kpd_votes +]%
+[+ commie_name +]: [+ kpd_votes +]%
 
-[? if not ddp_name: DDP?][? if ddp_name != 0 : [+ ddp_name +]?]: [+ ddp_votes +]%
+[+ lib_name +]: [+ ddp_votes +]%
 
-DVP: [+ dvp_votes +]%
+Conservatives (tories): [+ dnvp_votes +]%
 
-DNVP: [+ dnvp_votes +]%
-
-[? if dne_formed : DNE: [+ dne_votes +]% ?]
-
-NSDAP: [+ nsdap_votes +]%
+[+ fasc_name +]: [+ nsdap_votes +]%
 
 Others: [+ other_votes +]%
 
@@ -203,14 +195,14 @@ Support for Socialism: [+ socialism_disp +]%
 
 Support for Nationalism: [+ nationalism_disp +]%
 
-Workers: SPD: [+ workers_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ workers_sapd_display +]%, ?] Z: [+ workers_z_display +]%, KPD: [+ workers_kpd_display +]%, DDP: [+ workers_ddp_display +]%, DVP: [+ workers_dvp_display +]%; DNVP: [+ workers_dnvp_display +]%, [? if dne_formed : DNE: [+ workers_dne_display +]%, ?] NSDAP: [+ workers_nsdap_display +]%, Others: [+ workers_other_display +]%
+Workers: Labour: [+ workers_spd_display +]%, MRL: [+ workers_z_display +]%, [+ commie_name +]: [+ workers_kpd_display +]%, [+ lib_name +]: [+ workers_ddp_display +]%, Tories: [+ workers_dnvp_display +]%, [+ fasc_name +]: [+ workers_nsdap_display +]%, Others: [+ workers_other_display +]%
 
-New Middle Class: SPD: [+ new_middle_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ new_middle_sapd_display +]%, ?] Z: [+ new_middle_z_display +]%, KPD: [+ new_middle_kpd_display +]%, DDP: [+ new_middle_ddp_display +]%, DVP: [+ new_middle_dvp_display +]%; DNVP: [+ new_middle_dnvp_display +]%, [? if dne_formed : DNE: [+ new_middle_dne_display +]%, ?] NSDAP: [+ new_middle_nsdap_display +]%, Others: [+ new_middle_other_display +]%
+New Middle Class: SPD: [+ new_middle_spd_display +]%, MRL: [+ new_middle_z_display +]%, [+ commie_name +]: [+ new_middle_kpd_display +]%, [+ lib_name +]: [+ new_middle_ddp_display +]%, Tories: [+ new_middle_dnvp_display +]%, [+ fasc_name +]: [+ new_middle_nsdap_display +]%, Others: [+ new_middle_other_display +]%
 
-Old Middle Class: SPD: [+ old_middle_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ old_middle_sapd_display +]%, ?] Z: [+ old_middle_z_display +]%, KPD: [+ old_middle_kpd_display +]%, DDP: [+ old_middle_ddp_display +]%, DVP: [+ old_middle_dvp_display +]%; DNVP: [+ old_middle_dnvp_display +]%, [? if dne_formed : DNE: [+ old_middle_dne_display +]%, ?] NSDAP: [+ old_middle_nsdap_display +]%, Others: [+ old_middle_other_display +]%
+Old Middle Class: SPD: [+ old_middle_spd_display +]%, MRL: [+ old_middle_z_display +]%, [+ commie_name +]: [+ old_middle_kpd_display +]%, [+ lib_name +]: [+ old_middle_ddp_display +]%, Tories: [+ old_middle_dnvp_display +]%, [+ fasc_name +]: [+ old_middle_nsdap_display +]%, Others: [+ old_middle_other_display +]%
 
-Rural: SPD: [+ rural_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ rural_sapd_display +]%, ?] Z: [+ rural_z_display +]%, KPD: [+ rural_kpd_display +]%, DDP: [+ rural_ddp_display +]%, DVP: [+ rural_dvp_display +]%; DNVP: [+ rural_dnvp_display +]%, [? if dne_formed : DNE: [+ rural_dne_display +]%, ?] NSDAP: [+ rural_nsdap_display +]%, Others: [+ rural_other_display +]%
+Rural: SPD: [+ rural_spd_display +]%, MRL: [+ rural_z_display +]%, [+ commie_name +]: [+ rural_kpd_display +]%, [+ lib_name +]: [+ rural_ddp_display +]%, Tories: [+ rural_dnvp_display +]%, [+ fasc_name +]: [+ rural_nsdap_display +]%, Others: [+ rural_other_display +]%
 
-Unemployed: SPD: [+ unemployed_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ unemployed_sapd_display +]%, ?] Z: [+ unemployed_z_display +]%, KPD: [+ unemployed_kpd_display +]%, DDP: [+ unemployed_ddp_display +]%, DVP: [+ unemployed_dvp_display +]%; DNVP: [+ unemployed_dnvp_display +]%, [? if dne_formed : DNE: [+ unemployed_dne_display +]%, ?] NSDAP: [+ unemployed_nsdap_display +]%, Others: [+ unemployed_other_display +]%
+Unemployed: SPD: [+ unemployed_spd_display +]%, MRL: [+ unemployed_z_display +]%, [+ commie_name +]: [+ unemployed_kpd_display +]%, [+ lib_name +]: [+ unemployed_ddp_display +]%, Tories: [+ unemployed_dnvp_display +]%, [+ fasc_name +]: [+ unemployed_nsdap_display +]%, Others: [+ unemployed_other_display +]%
 
-Catholics: SPD: [+ catholics_spd_display +]%, [? if sapd_formed == 1 : SAPD: [+ catholics_sapd_display +]%, ?] Z: [+ catholics_z_display +]%, KPD: [+ catholics_kpd_display +]%, DDP: [+ catholics_ddp_display +]%, DVP: [+ catholics_dvp_display +]%; DNVP: [+ catholics_dnvp_display +]%, [? if dne_formed : DNE: [+ catholics_dne_display +]%, ?] NSDAP: [+ catholics_nsdap_display +]%, Others: [+ catholics_other_display +]%
+Catholics: SPD: [+ catholics_spd_display +]%, MRL: [+ catholics_z_display +]%, [+ commie_name +]: [+ catholics_kpd_display +]%, [+ lib_name +]: [+ catholics_ddp_display +]%, Tories: [+ catholics_dnvp_display +]%, [+ fasc_name +]: [+ catholics_nsdap_display +]%, Others: [+ catholics_other_display +]%
